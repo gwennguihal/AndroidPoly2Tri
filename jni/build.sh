@@ -1,1 +1,1 @@
-/Users/myrddin/dev/android-ndk-r6-crystax-2/ndk-build
+/cygdrive/d/dev/android-ndk-r6-crystax-2/ndk-build

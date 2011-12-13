@@ -13,7 +13,7 @@
 using namespace std;
 using namespace p2t;
 
-JNIEXPORT jintArray JNICALL Java_fr_myrddin_delaunay_triangulation_DelaunayTriangulation_jniTriangulate( JNIEnv *env, jobject obj, jintArray polygonArray) {
+JNIEXPORT jdoubleArray JNICALL Java_fr_myrddin_delaunay_triangulation_DelaunayTriangulation_jniTriangulate( JNIEnv *env, jobject obj, jdoubleArray polygonArray) {
 	jint polygonCount;
 	vector<Triangle*> triangles;
 	list<Triangle*> map;
@@ -21,8 +21,8 @@ JNIEXPORT jintArray JNICALL Java_fr_myrddin_delaunay_triangulation_DelaunayTrian
 
 	polygonCount = env->GetArrayLength(polygonArray);
 
-	jint buffer[polygonCount];
-	env->GetIntArrayRegion(polygonArray, 0, polygonCount, buffer);
+	jdouble buffer[polygonCount];
+	env->GetDoubleArrayRegion(polygonArray, 0, polygonCount, buffer);
 
 	jint i;
 	for (i = 0; i < polygonCount; i += 2) {
@@ -34,33 +34,29 @@ JNIEXPORT jintArray JNICALL Java_fr_myrddin_delaunay_triangulation_DelaunayTrian
 
 	triangles = cdt->GetTriangles();
 
-	jintArray result;
-	result = env->NewIntArray((int) triangles.size() * 3 * 2);
+	jdoubleArray result;
+	result = env->NewDoubleArray((int) triangles.size() * 3 * 2);
 
 	if (result == NULL) {
 		return NULL; // out of memory error thrown
 	}
 
-	jint fill[(int) triangles.size() * 3 * 2];
+	jdouble fill[(int) triangles.size() * 3 * 2];
 	for (int i = 0; i < triangles.size(); i++) {
 		Triangle& t = *triangles[i];
 		Point& a = *t.GetPoint(0);
 		Point& b = *t.GetPoint(1);
 		Point& c = *t.GetPoint(2);
 
-		fill[i * 3] = a.x;
-		fill[i * 3 + 1] = a.y;
-		fill[i * 3 + 2] = b.x;
-		fill[i * 3 + 3] = b.y;
-		fill[i * 3 + 4] = c.x;
-		fill[i * 3 + 5] = c.y;
-
-		//#ifdef ANDROID
-		//	__android_log_write(ANDROID_LOG_ERROR,"Tag","" + (char) a.x );
-		//#endif
+		fill[i * 6] = a.x;
+		fill[i * 6 + 1] = a.y;
+		fill[i * 6 + 2] = b.x;
+		fill[i * 6 + 3] = b.y;
+		fill[i * 6 + 4] = c.x;
+		fill[i * 6 + 5] = c.y;
 	}
 
-	env->SetIntArrayRegion(result, 0, (int) triangles.size() * 3 * 2, fill);
+	env->SetDoubleArrayRegion(result, 0, (int) triangles.size() * 3 * 2, fill);
 	return result;
 
 	return NULL;

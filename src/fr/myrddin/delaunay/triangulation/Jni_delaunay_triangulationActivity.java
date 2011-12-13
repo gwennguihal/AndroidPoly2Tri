@@ -15,9 +15,9 @@ public class Jni_delaunay_triangulationActivity extends Activity
 
 		DelaunayTriangulation clipper = new DelaunayTriangulation();
 
-		int[] input = { -200,-200,200,-200,200,200,-200,200 };
+		double[] input = { -200,-200,200,-200,200,200,-200,200 };
 
-		int[] output = clipper.triangulate(input);
+		double[] output = clipper.triangulate(input);
 
 		for (int i = 0; i < output.length; i++)
 		{

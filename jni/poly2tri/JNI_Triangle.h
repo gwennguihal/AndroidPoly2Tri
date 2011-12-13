@@ -12,8 +12,8 @@ extern "C" {
  * Method:    jniTriangulate
  * Signature: ([I)[I
  */
-JNIEXPORT jintArray JNICALL Java_fr_myrddin_delaunay_triangulation_DelaunayTriangulation_jniTriangulate
-  (JNIEnv *, jobject, jintArray);
+JNIEXPORT jdoubleArray JNICALL Java_fr_myrddin_delaunay_triangulation_DelaunayTriangulation_jniTriangulate
+  (JNIEnv *, jobject, jdoubleArray);
 
 #ifdef __cplusplus
 }

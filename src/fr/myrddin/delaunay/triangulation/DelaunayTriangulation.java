@@ -7,10 +7,10 @@ public class DelaunayTriangulation
 		System.loadLibrary("DelaunayTriangulation");
 	}
 	
-	public int[] triangulate(int[] polygon)
+	public double[] triangulate(double[] polygon)
 	{
 		return jniTriangulate(polygon);
 	}
 	
-	private native int[] jniTriangulate(int[] polygon);
+	private native double[] jniTriangulate(double[] polygon);
 }
